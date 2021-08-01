@@ -1,0 +1,19 @@
+I can find a way to move the duplicate and original files (e.g. I think of images mainly) into a new directory,
+renaming them incrementally. For example, when I find a duplicate, I move the duplicate into e new directory and
+copy the original into the new directory, and rename them as '1' and '1copy'. Then when I find the second duplicate
+couple, I move the duplicate and copy the original, renaming them as '2' and '2copy'.
+In this way I will keep the original files where they were before, plus I still have the opportunity to compare
+duplicate and original in the new directory, and if I find out some errors, for example a duplicate which
+is not equal to an original, I can move them again in the previous folders. Otherwise, if duplicate and original
+are actually the same, I can get rid of them.
+
+The thing to consider is triplicate, quadruplicate (etc.) files.
+In this case I have to find a way not to copy the original file every time.
+In this case I can consider the name, namely if the original file has already been copied in the new directory,
+I will not copy it again, I will just move the triplicate, quadruplicate (and so on) file in that new directory
+for later check.
+
+
+NEW IDEA -----
+To keep it simple, for now I can just rename the duplicate files where they are at the moment,
+without moving in a new folder
