@@ -1,4 +1,5 @@
 from dupli_lib.filehash import md5checksum
+from dupli_lib.move_duplipairs import move_and_rename_file, path_leaf
 
 import os
 
@@ -34,6 +35,7 @@ def find_duplicates(rootdir='', filext=''):
     d_md5 = {}
     duplipairs = []
     
+    count = 1
     for file in all_files:
         hashing = md5checksum(file)
         # if the md5 hashing is not in the dictionary, it will be added as a key, with its file as a value
@@ -43,7 +45,34 @@ def find_duplicates(rootdir='', filext=''):
         # in this case a tuple (duplicate, original) will be added to the duplipairs list
         # the original file is the file stored as a value of the md5 hashing key 
         else:
-            duplipairs.append((file, d_md5[hashing]))
+            original_file = d_md5[hashing]
+            duplicate_file = file
+            duplipairs.append((file, original_file))
+        
+            # invoking a function which moves the two files in a new folder 
+            #new_folder_path = os.path.join(rootdir, 'move_here')  # NOT MOVING FOR NOW
+            original_file_name = path_leaf(original_file)[1]  # extracting the second element of the tuple
+            #new_original_file_path = os.path.join(new_folder_path, original_file_name)
+
+            # renaming duplicate file
+            duplicate_file_split = path_leaf(file)
+            duplicate_folder = duplicate_file_split[0]
+            dot_index = original_file_name.index('.')
+
+            new_duplicate_name = original_file_name[:dot_index] + '_DUPLICATE' + original_file_name[dot_index:]
+            new_duplicate_dest = os.path.join(duplicate_folder, new_duplicate_name)
+            # move and rename
+            count = 1
+            while True:
+                try:
+                    os.rename(file, new_duplicate_dest)
+                    break
+                except(FileExistsError):
+                    count += 1
+                    change = 'DUPLICATE{}'.format(count)
+                    new_duplicate_name = original_file_name[:dot_index] + change +  original_file_name[dot_index:]
+                    new_duplicate_dest = os.path.join(duplicate_folder, new_duplicate_name)
+            count = 1
 
     # the output will be the list of (duplicate, original) pairs
     return duplipairs

@@ -40,3 +40,5 @@ if duplicates != []:
     print('here is the list of DUPLICATES that were found:')
     for file in duplicates:
         print(file)
+
+# move all original-duplicates pairs in a new folder and rename them in a way that makes it possible to easy check

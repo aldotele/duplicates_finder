@@ -13,7 +13,7 @@ def md5checksum(inputfile):
 
 
 if __name__ == '__main__':
-    print(md5checksum('../files/emma.txt'))
+    print(md5checksum('sample_files/elements.txt'))
 
 
 
